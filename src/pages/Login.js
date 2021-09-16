@@ -7,16 +7,19 @@ class Login extends React.Component {
         <input
           type="email"
           name="email-input"
-          placeholder="Email"
           id="email-input"
           data-testid="email-input"
+          placeholder="Email"
+          required
         />
         <input
           type="password"
           name="password-input"
-          placeholder="Senha"
           id="password-input"
           data-testid="password-input"
+          placeholder="Senha"
+          minLength="6"
+          required
         />
         <button type="submit">
           Entrar
