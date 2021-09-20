@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, screen, waitFor, within } from '@testing-lidbrary/react';
 import { response as mockData, initialStateHeader, initialStateWithExpenses } from './mockData';
 import App from '../App';
 import Wallet from '../pages/Wallet';
