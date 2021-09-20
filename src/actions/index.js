@@ -1,7 +1,6 @@
-// Coloque aqui suas actions
-export default function makeLogin(email) {
+export function login(payload) {
   return {
     type: 'LOGIN',
-    email,
+    payload,
   };
-}
+};
