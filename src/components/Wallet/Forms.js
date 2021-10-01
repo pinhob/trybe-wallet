@@ -1,11 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCurrencies } from '../../actions'
+import { getCurrencies, getExpenses } from '../../actions';
+import CurrenciesSelect from './CurrenciesSelect';
+import Input from '../Input';
+import Select from '../Select';
 
 class Forms extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
+    };
+
+    this.submitExpense = this.submitExpense.bind(this);
+  }
+
   componentDidMount() {
     const { fetchCurrencies } = this.props;
     fetchCurrencies();
+  }
+
+  submitExpense(event) {
+    const { newExpense } = this.props;
+
+    event.PreventDefault();
+
+    // newExpense(); // COLOCAR ALGO COMO O STATE AQUI
   }
 
   render() {
@@ -13,47 +38,38 @@ class Forms extends React.Component {
     return (
       <main>
         <form>
-          <label htmlFor="expense-field">
-            Valor:
-            <input type="number" name="expense-field" id="expense-field" />
-          </label>
-          <label htmlFor="description-field">
-            Descrição:
-            <input type="text" name="description-field" id="description-field" />
-          </label>
-          <label htmlFor="currency-select-field">
-            Moeda:
-            <select name="currency-select-field" id="currency-select-field">
-              { /* Com ajuda do João Lima na monitoria individual */ }
-              {currencies && currencies
-                .map((currency) => (
-                  <option
-                    key={ currency }
-                    value={ currency }
-                  >
-                    {currency}
-                  </option>))}
-            </select>
-          </label>
-          <label htmlFor="payment-method-field">
-            Método de pagamento:
-            <select name="payment-method-field" id="payment-method-field">
-              <option value="cash">Dinheiro</option>
-              <option value="credit">Cartão de crédito</option>
-              <option value="debit">Cartão de débito</option>
-            </select>
-          </label>
+          <Input
+            name="expense-field"
+            text="Valor:"
+            type="number"
+            placeholder="0.00"
+          />
 
-          <label htmlFor="categorie-field">
-            Tag:
-            <select name="categorie-field" id="categorie-field">
-              <option value="food">Alimentação</option>
-              <option value="leisure">Lazer</option>
-              <option value="work">Trabalho</option>
-              <option value="transport">Transporte</option>
-              <option value="health">Saúde</option>
-            </select>
-          </label>
+          <Input
+            name="description-field"
+            text="Descrição:"
+            type="text"
+          />
+
+          <CurrenciesSelect
+            currencies={ currencies }
+          />
+
+          <Select
+            name="payment-method-field"
+            text="Método de pagamento:"
+            options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+          />
+
+          <Select
+            name="categorie-field"
+            text="Tag:"
+            options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          />
+
+          <button type="submit" onClick={ this.submitExpense }>
+            Adicionar despesa
+          </button>
         </form>
       </main>
     );
@@ -66,6 +82,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(getCurrencies()),
+  newExpense: () => dispatch(getExpenses()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
