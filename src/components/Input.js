@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Com base nos exemplos de: https://www.youtube.com/watch?v=dZtuJ2Ns7q8&ab_channel=MatheusBattisti-HoradeCodar e https://css-tricks.com/demonstrating-reusable-react-components-in-a-form/
 class Input extends React.Component {
   render() {
-    const { name, text, type, placeholder = '' } = this.props;
+    const { name, text, type, placeholder = '', handleChange } = this.props;
     return (
       <label htmlFor={ name }>
         { text }
@@ -12,9 +12,8 @@ class Input extends React.Component {
           type={ type }
           name={ name }
           id={ name }
-          // value={ value }
           placeholder={ placeholder }
-          // onChange={ handleChange }
+          onChange={ handleChange }
         />
       </label>
     );

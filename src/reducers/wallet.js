@@ -1,4 +1,4 @@
-import { GET_CURRENCIES_FAIL, GET_CURRENCIES_SUCESS, GET_EXPENSES } from '../actions';
+import { GET_CURRENCIES_FAIL, GET_CURRENCIES_SUCESS, ADD_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,10 +22,10 @@ export default function wallet(state = INITIAL_STATE, action) {
     };
   }
 
-  case GET_EXPENSES: {
+  case ADD_EXPENSES: {
     return {
       ...state,
-      expenses: action.payload,
+      expenses: [...state.expenses, { ...action.payload, id: state.expenses.length }],
     };
   }
 

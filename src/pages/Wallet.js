@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Header from '../components/Wallet/Header';
 import Forms from '../components/Wallet/Forms';
 

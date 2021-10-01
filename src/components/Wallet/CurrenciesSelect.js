@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 class CurrenciesSelect extends React.Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, handleChange } = this.props;
     return (
-      <label htmlFor="currency-select-field">
+      <label htmlFor="currency">
         Moeda:
-        <select name="currency-select-field" id="currency-select-field">
+        <select name="currency" id="currency" onChange={ handleChange }>
           { /* Com ajuda do João Lima na monitoria individual */}
           {currencies && currencies
             .map((currency) => (

@@ -19,7 +19,7 @@ export const getCurrenciesFail = (error) => ({
   payload: error,
 });
 
-// Com base na fórmula ensinada pelo Wolf em aula e nos códigos dos colegas Vinicius Dyonisio (https://github.com/tryber/sd-013-a-project-trybewallet/pull/26/files) e Leandro Liduvino (https://github.com/tryber/sd-013-a-project-trybewallet/pull/26/files)
+// getCurriencies e getExpenses feitas com base na fórmula ensinada pelo Wolf em aula e consultando os códigos dos colegas Vinicius Dyonisio (https://github.com/tryber/sd-013-a-project-trybewallet/pull/26/files) e Leandro Liduvino (https://github.com/tryber/sd-013-a-project-trybewallet/pull/26/files)
 
 export const getCurrencies = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -36,5 +36,9 @@ export const addExpenses = (expense) => ({
 });
 
 export const getExpenses = (expense) => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
-  .then((response) => response.json())
-  .then((json) => dispatch(addExpenses({ ...expense, exchangesRates: json })));
+  .then((response) => {
+    return response.json();
+  })
+  .then((json) => {
+    dispatch(addExpenses({ ...expense, exchangeRates: json }));
+  });
