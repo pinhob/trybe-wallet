@@ -9,16 +9,46 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
+      disabledBtn: true,
+      validEmail: false,
+      validPassword: false,
     };
 
     this.getEmail = this.getEmail.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
+    this.validateButton = this.validateButton.bind(this);
     this.makeLogin = this.makeLogin.bind(this);
   }
 
   getEmail({ target: { value } }) {
     this.setState({
       email: value,
-    });
+    }, this.validateEmail);
+  }
+
+  validateEmail() {
+    // Com base em: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    const { email } = this.state;
+    const validation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (validation.test(email)) {
+      this.setState({ validEmail: true }, this.validateButton);
+    }
+  }
+
+  validatePassword({ target: { value } }) {
+    const FIVE = 5;
+    if (value.length !== null && value.length >= FIVE) {
+      this.setState({ validPassword: true });
+      this.validateButton();
+    }
+  }
+
+  validateButton() {
+    const { validEmail, validPassword } = this.state;
+    return validPassword && validEmail
+      ? this.setState({ disabledBtn: false })
+      : this.setState({ disabledBtn: true });
   }
 
   makeLogin(event) {
@@ -31,6 +61,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { disabledBtn } = this.state;
+
     return (
       <form onSubmit={ this.makeLogin }>
         <input
@@ -50,8 +82,13 @@ class Login extends React.Component {
           placeholder="Senha"
           minLength="6"
           required
+          onChange={ this.validatePassword }
         />
-        <button type="submit" id="button-input">
+        <button
+          type="submit"
+          id="button-input"
+          disabled={ disabledBtn }
+        >
           Entrar
         </button>
       </form>
@@ -65,6 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   loginDispatch: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Login);
