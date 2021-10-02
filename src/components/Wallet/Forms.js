@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getCurrencies, getExpenses } from '../../actions';
 import Input from '../Input';
 import Select from '../Select';
@@ -98,5 +99,11 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(getCurrencies()),
   newExpense: (expense) => dispatch(getExpenses(expense)),
 });
+
+Forms.propTypes = {
+  fetchCurrencies: PropTypes.func.isRequired,
+  newExpense: PropTypes.func.isRequired,
+  currencies: PropTypes.shape({}).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

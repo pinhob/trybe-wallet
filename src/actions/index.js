@@ -36,9 +36,7 @@ export const addExpenses = (expense) => ({
 });
 
 export const getExpenses = (expense) => (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
-  .then((response) => {
-    return response.json();
-  })
+  .then((response) => response.json())
   .then((json) => {
     dispatch(addExpenses({ ...expense, exchangeRates: json }));
   });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
-
   // Consultado código do colega Vinicius Dionysio (https://github.com/tryber/sd-013-a-project-trybewallet/pull/26/files)
   calculateTotal() {
     const { expenses } = this.props;
@@ -20,7 +20,6 @@ class Header extends React.Component {
 
   render() {
     const { email, expenses } = this.props;
-
 
     return (
       <header>
@@ -44,5 +43,10 @@ const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
 });
+
+Header.propTypes = {
+  expenses: PropTypes.shape([]).isRequired,
+  email: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, null)(Header);
