@@ -1,4 +1,7 @@
-import { GET_CURRENCIES_FAIL, GET_CURRENCIES_SUCESS, ADD_EXPENSES } from '../actions';
+import { GET_CURRENCIES_FAIL,
+  GET_CURRENCIES_SUCESS,
+  ADD_EXPENSES,
+  DELETE_EXPENSES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -26,6 +29,13 @@ export default function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: [...state.expenses, { ...action.payload, id: state.expenses.length }],
+    };
+  }
+
+  case DELETE_EXPENSES: {
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.payload),
     };
   }
 

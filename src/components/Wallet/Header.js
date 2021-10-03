@@ -45,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  expenses: PropTypes.shape([]).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   email: PropTypes.string.isRequired,
 };
 
